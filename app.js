@@ -240,27 +240,41 @@
       if (!err) {
         let selectedAttr = ""
         let LocatorsList = []
+        var obj = new Object();
         let type = ""
         let n = ""
         switch (selectedElement.value) {
           case "tagId":
             //chooses SimpleSe locator based on precendence, then lists all locators
-            if (tagName.value != '') {LocatorsList.push(`tagName=${tagName.value}`)
-              selectedAttr = tagName.value}
-            if (xpath.value != '') {LocatorsList.push(`xpath=${xpath.value}`)
+            if (xpath.value != '') 
+              obj.xpath=xpath.value;
+              {LocatorsList.push(`xpath=${xpath.value}`)
               selectedAttr = xpath.value}
-            if (cssPath.value != '') {LocatorsList.push(`css=${cssPath.value}`)
+            if (cssPath.value != '') 
+              obj.css=cssPath.value;
+              {LocatorsList.push(`css=${cssPath.value}`)
               selectedAttr = cssPath.value}
-            if (linkText.value != '') {LocatorsList.push(`linkText=${linkText.value}`)
+            if (linkText.value != '') 
+              obj.linkText=linkText.value;
+              {LocatorsList.push(`linkText=${linkText.value}`)
               selectedAttr = linkText.value}
-            if (className.value != '') {LocatorsList.push(`className=${className.value}`)
+            if (className.value != '') 
+              obj.className=className.value;
+              {LocatorsList.push(`className=${className.value}`)
               selectedAttr = className.value}
-            if (name.value != '') {LocatorsList.push(`name=${name.value}`)
+            if (name.value != '') 
+              obj.name=name.value;
+              {LocatorsList.push(`name=${name.value}`)
               selectedAttr = name.value}
-            if (tagId.value != '') {LocatorsList.push(`id=${tagId.value}`)
+            if (tagId.value != '') 
+              obj.id=tagId.value;
+              {LocatorsList.push(`id=${tagId.value}`)
               selectedAttr = tagId.value}
             
-            let tags = ["text", "button", "checkbox", "form", "image", "lable", "link", "radio", "select"] 
+            var objstr = JSON.parse(JSON.stringify(obj))
+
+            let tags = ["TextField","Button","Checkbox","Form","Image","Label","Link","RadioButton","SelectList"] 
+            console.log("objstr== " +JSON.stringify(objstr));
             for (var i = 0; i < LocatorsList.length; i++) {
               for (var j = 0; j < tags.length; j++) {
                 if (LocatorsList[i].includes(tags[j])) {
@@ -299,11 +313,11 @@
             {
               locale: locale[locale.selectedIndex].value,
               locator: selectedAttr,
-              AllLocators: LocatorsList
+              locators: objstr
             }
           ]
         }
-
+        
         if (waitAction[waitAction.selectedIndex].value !== "") {
           updateDoc.wait = {
             until: waitAction[waitAction.selectedIndex].value,
