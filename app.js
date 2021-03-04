@@ -10,6 +10,7 @@
   // Un-comment the following line for DEV
   // var manifest = {version: "2.0.0"};
 
+  var pageCounter = 0
   var brandName = document.getElementById("brandName")
   var pageObjectListBtn = document.getElementById("pageObjectListBtn")
   var addPageObjectBtn = document.getElementById("addPageObjectBtn")
@@ -96,7 +97,7 @@
     addPageObjectBtn.style.display = ""
     updatePageObjectBtn.style.display = "none"
 
-    document.getElementById("pageObjectName").value = ""
+    //document.getElementById("pageObjectName").value = ""
   }
 
   function showAddPageObjectFormListener(event) {
@@ -131,8 +132,16 @@
     } else if (isFirstCharSmall(pageObjectName.value)) {
       pageObjectDiv.className = pageObjectDiv.className + " has-error"
       return
-    } else if (isEmpty(pageObjectName.value)) {
-      pageObjectDiv.className = pageObjectDiv.className + " has-error"
+    } else if (pageObjectName.value == "domain-name-by-default") {
+      //pageObjectDiv.className = pageObjectDiv.className + " has-error"
+      pageObjectName.value = "Page_" + (pageCounter).toString()
+      pageCounter++
+      return
+    }
+    else if (isEmpty(pageObjectName.value)) {
+      //pageObjectDiv.className = pageObjectDiv.className + " has-error"
+      pageObjectName.value = "Page_" + (pageCounter).toString()
+      pageCounter++
       return
     } else {
       pageObjectDiv.className = "form-group"
@@ -189,8 +198,9 @@
     )
 
     if (isEmpty(pageElementName.value)) {
-      pageElementVariableDiv.className =
-        pageElementVariableDiv.className + " has-error"
+      //pageElementVariableDiv.className =
+        //pageElementVariableDiv.className + " has-error"
+      pageElementName.value = "locator-by-default"
       return
     } else if (hasWhiteSpace(pageElementName.value)) {
       pageElementVariableDiv.className =
@@ -206,12 +216,12 @@
       'input[name = "selectedElement"]:checked'
     )
 
-    if (isEmpty(document.getElementById(selectedElement.value).value)) {
-      document.getElementById("attributeEmptyDiv").style.display = ""
-      return
-    } else {
-      document.getElementById("attributeEmptyDiv").style.display = "none"
-    }
+    //if (isEmpty(document.getElementById(selectedElement.value).value)) {
+      //document.getElementById("attributeEmptyDiv").style.display = ""
+    //  return
+    //} else {
+      //document.getElementById("attributeEmptyDiv").style.display = "none"
+    //}
 
     // var isList = document.getElementById("isList");
     var locale = document.getElementById("locale")
@@ -229,31 +239,55 @@
     db.get(pageObjectId.value, function(err, doc) {
       if (!err) {
         let selectedAttr = ""
+        let LocatorsList = []
+        let type = ""
+        let n = ""
         switch (selectedElement.value) {
-          case "xpath":
-            selectedAttr = `xpath=${xpath.value}`
-            break
-          case "cssPath":
-            selectedAttr = `css=${cssPath.value}`
-            break
-          case "className":
-            selectedAttr = `class=${className.value}`
-            break
-          case "tagName":
-            selectedAttr = `tagName=${tagName.value}`
-            break
           case "tagId":
-            selectedAttr = `${tagId.value}`
-            break
-          case "name":
-            selectedAttr = `${name.value}`
-            break
-          case "linkText":
-            selectedAttr = `linkText=${linkText.value}`
-            break
-          case "partialLinkText":
-            console.log(`partialLinkText=${partialLinkText.value}`)
-            selectedAttr = `partialLinkText=${partialLinkText.value}`
+            //chooses SimpleSe locator based on precendence, then lists all locators
+            if (tagName.value != '') {LocatorsList.push(`tagName=${tagName.value}`)
+              selectedAttr = tagName.value}
+            if (xpath.value != '') {LocatorsList.push(`xpath=${xpath.value}`)
+              selectedAttr = xpath.value}
+            if (cssPath.value != '') {LocatorsList.push(`css=${cssPath.value}`)
+              selectedAttr = cssPath.value}
+            if (linkText.value != '') {LocatorsList.push(`linkText=${linkText.value}`)
+              selectedAttr = linkText.value}
+            if (className.value != '') {LocatorsList.push(`className=${className.value}`)
+              selectedAttr = className.value}
+            if (name.value != '') {LocatorsList.push(`name=${name.value}`)
+              selectedAttr = name.value}
+            if (tagId.value != '') {LocatorsList.push(`id=${tagId.value}`)
+              selectedAttr = tagId.value}
+            
+            let tags = ["text", "button", "checkbox", "form", "image", "lable", "link", "radio", "select"] 
+            for (var i = 0; i < LocatorsList.length; i++) {
+              for (var j = 0; j < tags.length; j++) {
+                if (LocatorsList[i].includes(tags[j])) {
+                    elementType.value = tags[j];
+                }
+              }
+            } 
+            if (pageElementName.value == "locator-by-default") {
+              type = elementType.value === "" ? "Generic" : elementType.value + ""
+              let wordcount = 0;
+              let flag = 0
+              for (let i = 0; wordcount < 3; i++)
+              {
+                if (selectedAttr.charAt(i).match(/[a-z]/i)) {
+                  if (flag === 1) {
+                    n = n + selectedAttr.charAt(i).toUpperCase()
+                    flag = 0
+                  }
+                  else{n = n + selectedAttr.charAt(i)}
+                }
+                else {
+                  wordcount++
+                  flag = 1
+                }
+              }
+              pageElementName.value = n + type[0].toUpperCase() + type.substring(1)
+            }
             break
         }
 
@@ -261,10 +295,11 @@
           name: pageElementName.value,
           list: isListElement.checked,
           type: elementType.value === "" ? "generic" : elementType.value,
-          locale: [
+          locales: [
             {
-              name: locale[locale.selectedIndex].value,
-              locator: selectedAttr
+              locale: locale[locale.selectedIndex].value,
+              locator: selectedAttr,
+              AllLocators: LocatorsList
             }
           ]
         }
@@ -492,7 +527,7 @@
 
     document.getElementById("elementPageObjectId").value = pageObject._id
     document.getElementById("elementPageObjectName").value = pageObject.name
-    document.getElementById("pageElementName").value = ""
+    document.getElementById("pageElementName").value = "locator-by-default"
     document.getElementById("isList").checked = false
     document.getElementById("elementType").value = ""
     var locale = document.getElementById("locale")
@@ -593,7 +628,7 @@
     )
 
     if (isEmpty(document.getElementById(selectedElement.value).value)) {
-      document.getElementById("attributeEmptyDiv").style.display = ""
+      //document.getElementById("attributeEmptyDiv").style.display = ""
       return
     } else {
       document.getElementById("attributeEmptyDiv").style.display = "none"

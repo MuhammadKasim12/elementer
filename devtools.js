@@ -1,5 +1,5 @@
 chrome.devtools.panels.create(
-  "Elementer",
+  "ElementerMod",
   "assets/favicon-32x32.png",
   "panel.html",
   function(panel) {
