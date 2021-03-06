@@ -58,6 +58,7 @@
               id="pageObjectName"
               class="form-control"
               aria-describedby="pageObjectHelpBlock"
+              value="domain-name-by-default"
             />
             <span id="pageObjectHelpBlock" class="form-text text-muted"
               >Name should start with Capital Letter. Should not be empty. No
@@ -376,6 +377,8 @@
                   id="pageElementName"
                   class="form-control"
                   aria-describedby="pageElementHelpBlock"
+                  value="locator-by-default"
+                  placeholder="locator-by-default"
                 />
                 <div class="input-group-append">
                   <select
@@ -385,15 +388,15 @@
                   >
                     <option value="">Select Element Type</option>
                     <option value="generic">generic</option>
-                    <option value="button">button</option>
-                    <option value="checkbox">checkbox</option>
-                    <option value="form">form</option>
-                    <option value="image">image</option>
-                    <option value="label">label</option>
-                    <option value="link">link</option>
-                    <option value="radio">radio</option>
-                    <option value="select">select</option>
-                    <option value="text">text</option>
+                    <option value="TextField">text</option>
+                    <option value="Button">button</option>
+                    <option value="Checkbox">checkbox</option>
+                    <option value="Form">form</option>
+                    <option value="Image">image</option>
+                    <option value="Label">label</option>
+                    <option value="Link">link</option>
+                    <option value="RadioButton">radio</option>
+                    <option value="SelectList">select</option>
                   </select>
                 </div>
               </div>
@@ -621,15 +624,16 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">ID</span>
                 </div>
-                <input type="text" id="tagId" class="form-control" />
+                <input type="text" id="tagId" class="form-control" readonly/>
                 <div class="input-group-append">
-                  <div class="input-group-text">
+                  <div class="input-group-text" hidden>
                     <input
                       type="radio"
                       id="selectedElement_tagId"
                       name="selectedElement"
                       value="tagId"
                       checked
+                      hidden
                     />
                   </div>
                 </div>
@@ -640,17 +644,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Tag</span>
                 </div>
-                <input type="text" id="tagName" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_tagName"
-                      name="selectedElement"
-                      value="tagName"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="tagName" class="form-control" readonly />
               </div>
             </div>
           </div>
@@ -661,17 +655,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Name</span>
                 </div>
-                <input type="text" id="name" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_name"
-                      name="selectedElement"
-                      value="name"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="name" class="form-control" readonly/>
               </div>
             </div>
             <div class="form-group col-md-6">
@@ -679,38 +663,17 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">XPath</span>
                 </div>
-                <input type="text" id="xpath" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_xpath"
-                      name="selectedElement"
-                      value="xpath"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="xpath" class="form-control" readonly/>
               </div>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">CSS</span>
                 </div>
-                <input type="text" id="cssPath" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_cssPath"
-                      name="selectedElement"
-                      value="cssPath"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="cssPath" class="form-control" readonly/>
               </div>
             </div>
             <div class="form-group col-md-6">
@@ -718,17 +681,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Class</span>
                 </div>
-                <input type="text" id="className" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_className"
-                      name="selectedElement"
-                      value="className"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="className" class="form-control" readonly/>
               </div>
             </div>
           </div>
@@ -739,17 +692,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Link Text</span>
                 </div>
-                <input type="text" id="linkText" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_linkText"
-                      name="selectedElement"
-                      value="linkText"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="linkText" class="form-control" readonly/>
               </div>
             </div>
 
@@ -758,17 +701,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Partial Link Text</span>
                 </div>
-                <input type="text" id="partialLinkText" class="form-control" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <input
-                      type="radio"
-                      id="selectedElement_partialLinkText"
-                      name="selectedElement"
-                      value="partialLinkText"
-                    />
-                  </div>
-                </div>
+                <input type="text" id="partialLinkText" class="form-control" readonly/>
               </div>
             </div>
           </div>
@@ -850,5 +783,6 @@
 
     <script type="text/javascript" src="./app.js"></script>
     <script src="panel.js"></script>
+    <script src="tabUrl.js" type="text/javascript"></script>
   </body>
 </html>

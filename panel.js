@@ -13,6 +13,7 @@
     document.querySelector("#xpath").value = message.xpath
     document.querySelector("#cssPath").value = message.cssPath
     // port.postMessage(message);
+    document.querySelector("#pageObjectName").value = tab.url
   })
 })()
 
@@ -25,6 +26,19 @@ document.querySelector("#inspectElement").addEventListener(
   "click",
   function() {
     sendObjectToInspectedPage({ action: "script", content: "inspector.js" })
+  },
+  false
+)
+
+function sendObjectToTabPage(tab) {
+  tab.tabId = chrome.devtools.inspectedWindow.tabId
+  chrome.extension.sendMessage(tab)
+}
+
+document.querySelector("#pageObjectListBtn").addEventListener(
+  "click",
+  function() {
+    sendObjectToTabPage({ action: "script", content: "tab.js" })
   },
   false
 )
