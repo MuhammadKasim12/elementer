@@ -73,9 +73,9 @@
       _id: new Date().toISOString(),
       name: name,
       defaultLocale: defaultLocale,
-      elementerVersion: manifest.version,
       elements: []
     }
+    console.log("removed the element version")
     console.log(pageObject)
 
     db.put(pageObject, function callback(err, result) {
@@ -312,7 +312,6 @@
           locales: [
             {
               locale: locale[locale.selectedIndex].value,
-              locator: selectedAttr,
               locators: objstr
             }
           ]
@@ -335,8 +334,7 @@
             _rev: doc._rev,
             name: doc.name,
             defaultLocale: doc.defaultLocale,
-            elements: doc.elements,
-            elementerVersion: doc.elementerVersion
+            elements: doc.elements
           },
           function(err, response) {
             if (err) {
@@ -518,8 +516,7 @@
             _rev: doc._rev,
             name: doc.name,
             defaultLocale: doc.defaultLocale,
-            elements: doc.elements,
-            elementerVersion: doc.elementerVersion
+            elements: doc.elements
           },
           function(err, response) {
             if (!err) {
@@ -721,8 +718,7 @@
             _rev: doc._rev,
             name: doc.name,
             defaultLocale: doc.defaultLocale,
-            elements: doc.elements,
-            elementerVersion: doc.elementerVersion
+            elements: doc.elements
           },
           function(err, response) {
             if (err) {
@@ -868,7 +864,6 @@
 
           doc.elements[idX].locale.push({
             name: locale[locale.selectedIndex].value,
-            locator: selectedAttr
           })
 
           db.put(
@@ -877,8 +872,7 @@
               _rev: doc._rev,
               name: doc.name,
               defaultLocale: doc.defaultLocale,
-              elements: doc.elements,
-              elementerVersion: doc.elementerVersion
+              elements: doc.elements
             },
             function(err, response) {
               if (err) {
@@ -925,8 +919,7 @@
             _rev: doc._rev,
             name: doc.name,
             defaultLocale: doc.defaultLocale,
-            elements: doc.elements,
-            elementerVersion: doc.elementerVersion
+            elements: doc.elements
           },
           function(err, response) {
             if (err) {
@@ -955,8 +948,7 @@
             _rev: doc._rev,
             name: doc.name,
             defaultLocale: doc.defaultLocale,
-            elements: doc.elements,
-            elementerVersion: doc.elementerVersion
+            elements: doc.elements
           },
           function(err, response) {
             if (err) {
