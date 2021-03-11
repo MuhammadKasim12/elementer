@@ -864,6 +864,7 @@
 
           doc.elements[idX].locale.push({
             name: locale[locale.selectedIndex].value,
+            locator: selectedAttr
           })
 
           db.put(
@@ -1188,6 +1189,34 @@
       false
     )
 
+    var copyToClipBoard = document.createElement("a")
+    copyToClipBoard.className = "btn btn-default"
+    copyToClipBoard.innerHTML = "Copy To clipboard"
+    copyToClipBoard.addEventListener(
+      "click",
+      function(event) {
+        // Clone the object without reference
+        var str = JSON.parse(JSON.stringify(pageObject))
+        console.log(str)
+        // Delete the _id and _rev
+        delete str._id
+        delete str._rev
+        return copyJsonToClipboard(JSON.stringify(str, null, 2));
+      },
+      false
+    )
+    function copyJsonToClipboard (jsonString) {
+      var tempElement = document.createElement('textarea');
+      tempElement.value = jsonString;
+      tempElement.setAttribute('readonly', '');
+      tempElement.style = {position: 'absolute', left: '-9999px'};
+      document.body.appendChild(tempElement);
+      tempElement.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempElement);
+    }
+
+
     var deletePageObjectBtn = document.createElement("button")
     deletePageObjectBtn.className = "btn btn-danger"
     deletePageObjectBtn.innerHTML = "Delete"
@@ -1202,6 +1231,7 @@
     divDisplay.appendChild(addElementBtn)
     divDisplay.appendChild(elementsListBtn)
     divDisplay.appendChild(exportJsonBtn)
+    divDisplay.appendChild(copyToClipBoard)
     divDisplay.appendChild(deletePageObjectBtn)
     divDisplay.style.display = "none"
     divDisplay.className = "btn btn-group"
