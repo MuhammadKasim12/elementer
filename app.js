@@ -2,10 +2,10 @@
   "use strict"
 
   // Comment the following line for DEV
-  // var manifest = chrome.runtime.getManifest()
-  var manifest = {
-    version: "1.2.0"
-  }
+  var manifest = chrome.runtime.getManifest()
+  // var manifest = {
+  //   version: "1.2.0"
+  // }
 
   // Un-comment the following line for DEV
   // var manifest = {version: "2.0.0"};
