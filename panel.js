@@ -13,7 +13,7 @@
     document.querySelector("#xpath").value = message.xpath
     document.querySelector("#cssPath").value = message.cssPath
     // port.postMessage(message);
-    document.querySelector("#pageObjectName").value = tab.url
+    // document.querySelector("#pageObjectName").value = tab.url
   })
 })()
 
