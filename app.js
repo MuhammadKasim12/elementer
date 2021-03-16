@@ -132,7 +132,7 @@
     } else if (isFirstCharSmall(pageObjectName.value)) {
       pageObjectDiv.className = pageObjectDiv.className + " has-error"
       return
-    } else if (pageObjectName.value == "domain-name-by-default") {
+    } else if (pageObjectName.value == "") {
       //pageObjectDiv.className = pageObjectDiv.className + " has-error"
       pageObjectName.value = "Page_" + (pageCounter).toString()
       pageCounter++
@@ -200,7 +200,7 @@
     if (isEmpty(pageElementName.value)) {
       //pageElementVariableDiv.className =
         //pageElementVariableDiv.className + " has-error"
-      pageElementName.value = "locator-by-default"
+      pageElementName.value = ""
       return
     } else if (hasWhiteSpace(pageElementName.value)) {
       pageElementVariableDiv.className =
@@ -538,7 +538,7 @@
 
     document.getElementById("elementPageObjectId").value = pageObject._id
     document.getElementById("elementPageObjectName").value = pageObject.name
-    document.getElementById("pageElementName").value = "locator-by-default"
+    document.getElementById("pageElementName").value = ""
     document.getElementById("isList").checked = false
     document.getElementById("elementType").value = ""
     var locale = document.getElementById("locale")
@@ -1190,8 +1190,8 @@
     )
 
     var copyToClipBoard = document.createElement("a")
-    copyToClipBoard.className = "btn btn-default"
-    copyToClipBoard.innerHTML = "Copy To clipboard"
+    copyToClipBoard.className = "btn btn-outline-primary"
+    copyToClipBoard.innerHTML ="<span style='font-size:20px'>✂ Copy to clipboard</span>"
     copyToClipBoard.addEventListener(
       "click",
       function(event) {
@@ -1230,7 +1230,7 @@
     divDisplay.appendChild(editPageObjectButton)
     divDisplay.appendChild(addElementBtn)
     divDisplay.appendChild(elementsListBtn)
-    divDisplay.appendChild(exportJsonBtn)
+    // divDisplay.appendChild(exportJsonBtn)
     divDisplay.appendChild(copyToClipBoard)
     divDisplay.appendChild(deletePageObjectBtn)
     divDisplay.style.display = "none"
