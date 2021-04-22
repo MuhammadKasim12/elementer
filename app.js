@@ -273,7 +273,7 @@
             
             var objstr = JSON.parse(JSON.stringify(obj))
 
-            let tags = ["TextField","Button","Checkbox","Form","Image","Label","Link","RadioButton","SelectList"] 
+            let tags = ["Generic","Table","TextField","Button","Checkbox","Form","Image","Label","Link","RadioButton","SelectList"] 
             console.log("objstr== " +JSON.stringify(objstr));
             for (var i = 0; i < LocatorsList.length; i++) {
               for (var j = 0; j < tags.length; j++) {
@@ -1163,32 +1163,7 @@
       "click",
       elementsListButtonPressed.bind(this, pageObject)
     )
-
-    var exportJsonBtn = document.createElement("a")
-    exportJsonBtn.className = "btn btn-default"
-    exportJsonBtn.download = pageObject.name + ".json"
-    exportJsonBtn.innerHTML = "Export Json"
-    exportJsonBtn.addEventListener(
-      "click",
-      function(event) {
-        // Clone the object without reference
-        var str = JSON.parse(JSON.stringify(pageObject))
-
-        // Delete the _id and _rev
-        delete str._id
-        delete str._rev
-
-        // Save the file contents as DataURI
-        var dataUri =
-          "data:application/json;charset=utf-8," +
-          encodeURIComponent(JSON.stringify(str, null, 2))
-
-        // Write it as the href for the link
-        var link = (event.target.href = dataUri)
-      },
-      false
-    )
-
+    
     var copyToClipBoard = document.createElement("a")
     copyToClipBoard.className = "btn btn-outline-primary"
     copyToClipBoard.innerHTML ="<span style='font-size:20px'>✂ Copy to clipboard</span>"
